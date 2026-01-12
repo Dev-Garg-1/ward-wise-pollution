@@ -11,6 +11,7 @@ import CitizenView from './components/CitizenView';
 import TrendsView from './components/TrendsView';
 import VoiceAssistant from './components/VoiceAssistant';
 import LiveMonitorCard from './components/LiveMonitorCard';
+import HeatmapWidget from './components/HeatmapWidget';
 
 const App: React.FC = () => {
   const [view, setView] = useState<ViewMode>(ViewMode.LANDING);
@@ -74,6 +75,11 @@ const App: React.FC = () => {
                  <LiveMonitorCard ward={selectedWard} />
              )}
 
+             {/* Historical Heatmap (Month on Month) */}
+             {selectedWard && (
+                 <HeatmapWidget ward={selectedWard} />
+             )}
+
              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1">
                 {/* Map Panel */}
                 <div className="lg:col-span-5 flex flex-col h-[500px] lg:h-auto">
@@ -107,7 +113,7 @@ const App: React.FC = () => {
         )}
 
         {view === ViewMode.CITIZEN && (
-            <CitizenView wards={wards} />
+            <CitizenView wards={wards} selectedWardId={selectedWardId} />
         )}
 
         {/* Global Voice Assistant */}

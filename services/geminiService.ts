@@ -79,8 +79,8 @@ export const getChatResponse = async (query: string, wards: Ward[], language: 'e
         1. Language: Reply strictly in ${language === 'hi' ? 'Hindi (Simple conversational)' : 'English'}.
         2. Data Source: 
            - If the user asks about the wards listed in the Context Data, use that data.
-           - If the user asks about general air quality facts, health advice, or real-world news (e.g. "What is the AQI in New York?"), use Google Search.
-        3. Style: Keep the answer concise (max 2-3 sentences) suitable for voice speech.
+           - If the user asks about general air quality facts, health advice, or real-world news (e.g. "What is the AQI in New York?", "Pollution in Delhi today"), use Google Search to get real-time information.
+        3. Style: Keep the answer concise (max 2-3 sentences) suitable for voice speech. Do not use markdown formatting.
     `;
 
     try {

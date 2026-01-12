@@ -1,6 +1,6 @@
 import React from 'react';
 import { ViewMode, Ward } from '../types';
-import { ArrowRight, Activity, Map, Cpu, ShieldCheck, Radio, Search, Globe } from 'lucide-react';
+import { ArrowRight, Activity, Map, Cpu, ShieldCheck, Radio, Search, Globe, AlertOctagon } from 'lucide-react';
 import WardMap from './WardMap';
 import WardSearch from './WardSearch';
 
@@ -11,6 +11,9 @@ interface LandingPageProps {
 }
 
 const LandingPage: React.FC<LandingPageProps> = ({ wards, onWardSelect, onStart }) => {
+  // Identify critical wards for the landing page ticker
+  const criticalWards = [...wards].sort((a,b) => b.aqi - a.aqi).slice(0, 3);
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
       <style>{`
@@ -72,6 +75,23 @@ const LandingPage: React.FC<LandingPageProps> = ({ wards, onWardSelect, onStart 
                         Access National Dashboard <ArrowRight size={18} />
                     </button>
                 </div>
+                
+                {/* Critical Alerts Mini-Section */}
+                {criticalWards.length > 0 && (
+                    <div className="mt-8 bg-red-900/30 border border-red-500/30 rounded-xl p-4 backdrop-blur-sm">
+                        <div className="flex items-center gap-2 text-red-300 font-bold text-xs uppercase tracking-wider mb-3">
+                            <AlertOctagon size={14} /> Critical Hotspots (Live)
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            {criticalWards.map(w => (
+                                <div key={w.id} className="flex justify-between items-center text-sm">
+                                    <span className="text-slate-200">{w.name}</span>
+                                    <span className="font-mono font-bold text-red-400">{w.aqi} AQI</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
             
             {/* Right Content - Live Map Preview */}

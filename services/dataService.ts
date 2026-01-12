@@ -143,7 +143,8 @@ export const simulateLiveUpdate = (wards: Ward[]): Ward[] => {
       aqi: newAqi,
       category: getCategory(newAqi),
       trend: newTrend,
-      trafficIndex: Math.min(100, Math.max(0, ward.trafficIndex + (Math.random() * 6 - 3))),
+      // Ensure integer format using Math.round
+      trafficIndex: Math.round(Math.min(100, Math.max(0, ward.trafficIndex + (Math.random() * 6 - 3)))),
       pollutants: {
         ...ward.pollutants,
         pm25: Math.round(newAqi * 0.55),
